@@ -17,7 +17,8 @@ builder.Services.AddDbContext<LeitorContext>(options =>
 });
 
 //cuidado com isso aqui se der erro foi culpa dele
-//builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()))
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
 
 builder.Services.AddScoped<ULeitorRepository, LeitorRepository>();
 builder.Services.AddScoped<ILivrosRepository, LivroRepository>();
@@ -38,4 +39,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 //responsavel por forcar a inicializacao do serviço na porta 300
-app.Run("http://localhost:300");
+app.Run("http://localhost:3000");

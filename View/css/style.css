@@ -1,13 +1,21 @@
-/*body {
+body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.5;
-    color: #444;
+    color: rgb(14, 12, 12);
     font-size: 100%;
 }
 
-.logo {
+/*.logo {
     width: 100px;
     float: left;
+}*/
+.topo {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: normal;
+    align-items: stretch;
+    align-content: stretch;
 }
 
 a:hover {
@@ -16,11 +24,11 @@ a:hover {
 
 nav {
     width: 50%;
-    float: right;
+    float: center;
 }
 
 nav ul {
-    float: right;
+    float: center;
 }
 
 nav li {
@@ -29,11 +37,11 @@ nav li {
     margin-top: 10px;
     display: inline-block;
     font-size: 16px;
-    color: #81B622;
+    color: #86343f;
 }
 
 nav li a {
-    color: #999;
+    color: rgb(75, 20, 20);
 }
 
 .bara {
@@ -51,46 +59,90 @@ nav li a {
 .menu {
     text-decoration: none;
     font-size: 16px;
-    color: #fdfdfd;
-}*/
+    color: #f8f5f5;
 
+}
 
-/* a {
+a {
     text-decoration: none;
     font-size: 16px;
-    color: #460812;
+    color: #691c2a;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-.container {
-    max-width: 1128px;
-    margin: 0 auto;
-}
-
-nav {
-    width: 840px;
-    float: center;
-}
-
-nav ul {
-    float: right;
-}
-
-nav li {
-    font-size: 12px;
-    margin-left: 20px;
-    margin-top: 10px;
-    display: inline-block;
-}
-
-nav li a {
-    color: rgb(65, 9, 9);
-} */
-
-
-/*font-size: 70px;
+/*///////////////////////////////////////*/
+/*css form um*/
+.form {
+    box-shadow: 0 0 1px 0;
+    position: relative;
+    margin: 50px auto;
+    max-width: 320px;
+    padding: 30px;
     text-align: center;
-    color: brown;*/
+    z-index: 1;
+}
+
+.form button,
+input {
+    border: 0;
+    font-size: 14px;
+    outline: 0;
+    padding: 20px;
+    width: 100%;
+}
+
+.form button {
+    background: rgb(75, 20, 20);
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.form button:active {
+    background: #b42834;
+}
+
+.form input {
+    background: #e2e2e2e2;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+/*******************************************/
+
+.formlivro {
+    box-shadow: 0 0 1px 0;
+    position: relative;
+    margin: 50px auto;
+    max-width: 320px;
+    padding: 30px;
+    text-align: center;
+    z-index: 1;
+}
+
+.formlivro button,
+input {
+    border: 0;
+    font-size: 14px;
+    outline: 0;
+    padding: 20px;
+    width: 100%;
+}
+
+.formlivro button {
+    background: rgb(75, 20, 20);
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.formlivro button:active {
+    background: #b42834;
+}
+
+.formlivro input {
+    background: #e2e2e2e2;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
