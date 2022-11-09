@@ -22,7 +22,7 @@ function cadastrar() {
         'Nascimento': document.getElementById('data-nascimento').value,
     }
 
-    fetch(url + "leitor",
+    fetch(url + "Leitor",
         {
             'method': 'POST',
             'redirect': 'follow',

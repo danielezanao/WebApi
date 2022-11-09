@@ -13,9 +13,9 @@ body {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: normal;
+    justify-content: space-around;
     align-items: stretch;
-    align-content: stretch;
+    align-content: normal;
 }
 
 a:hover {
@@ -142,6 +142,44 @@ input {
 }
 
 .formlivro input {
+    background: #e2e2e2e2;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+/************************************************/
+/*terceiro form emprestimo*/
+
+.formemprestimo {
+    box-shadow: 0 0 1px 0;
+    position: relative;
+    margin: 50px auto;
+    max-width: 320px;
+    padding: 30px;
+    text-align: center;
+    z-index: 1;
+}
+
+.formemprestimo button,
+input {
+    border: 0;
+    font-size: 14px;
+    outline: 0;
+    padding: 20px;
+    width: 100%;
+}
+
+.formemprestimo button {
+    background: rgb(75, 20, 20);
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.formemprestimo button:active {
+    background: #b42834;
+}
+
+.formemprestimo input {
     background: #e2e2e2e2;
     box-sizing: border-box;
     margin-bottom: 15px;

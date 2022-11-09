@@ -40,10 +40,22 @@
             <h2>Cadastro de Livro</h2>
             <input id="nome" placeholder="Nome do livro" type="text" />
             <input id="autor" placeholder="Nome do autor" type="text" />
-            <input id="genero" placeholder="Genero do livro" type="email" />
-            <input id="ano" placeholder="Ano de lançamento" type="date" />
+            <input id="genero" placeholder="Genero do livro" type="text" />
+            <input id="ano" placeholder="Ano de lançamento" type="text" />
             <button onclick="cadastrarlivro()">Cadastrar</button>
-            <p>Ir para <a href="listar.html">lista de usuários</a></p>
+            <p>Ir para <a href="listar.html">lista de livros</a></p>
+        </div>
+
+        <div class="formemprestimo">
+            <h2>Emprestimo de Livro</h2>
+            <input id="id_leitor" placeholder="Numero do leitor" type="number" />
+            <input id="id_livro" placeholder="Numero do livro" type="number" />
+            <h3>Data de emprestimo</h3>
+            <input id="emprestimo" placeholder="Dia do emprestimo" type="date" />
+            <h3>Data de devolução</h3>
+            <input id="devolucao" placeholder="Dia da devolução" type="date" />
+            <button onclick="emprestimo()">EMprestar</button>
+            <p>Ir para <a href="listar.html">lista emprestimos</a></p>
         </div>
     </div>
 </body>

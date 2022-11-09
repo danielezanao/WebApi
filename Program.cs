@@ -38,5 +38,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-//responsavel por forcar a inicializacao do serviço na porta 300
+//responsavel por forcar a inicializacao do serviço na porta 3000
 app.Run("http://localhost:3000");
