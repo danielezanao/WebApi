@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/javascript" href="js/script.js">
+    <!-- <link rel="stylesheet" href="js/script.js"> -->
 </head>
 
 <body>
@@ -30,7 +30,7 @@
             <h2>Cadastro de Usuario</h2>
             <input id="nome-completo" placeholder="Nome Completo" type="text" onblur="validaNome(this.id)" />
             <input id="data-nascimento" placeholder="Data de Nascimento" type="date" onblur="validaData(this.id)" />
-            <input id="email" placeholder="Email" type="email" />
+            <input id="email" placeholder="Email" />
             <button onclick="cadastrar()">Cadastrar</button>
             <p>Ir para <a href="listar.html">lista de usuários</a></p>
         </div>
@@ -61,3 +61,235 @@
 </body>
 
 </html>
+
+<script>
+    var url = 'http://localhost:3000/'
+
+
+    function cadastrar() {
+        //validacao de alguns dos inputs
+
+        if (!validaNome('nome-completo')) {
+            return
+        }
+
+        if (!validaData('data-nascimento')) {
+            return
+        }
+        if (!validaEmail('email')) {
+            return
+        }
+
+
+        let body =
+        {
+            'Nome': document.getElementById('nome-completo').value,
+            'Nascimento': document.getElementById('data-nascimento').value,
+            'Email': document.getElementById('email').value,
+        }
+
+        fetch(url + "api/Leitor",
+            {
+                'method': 'POST',
+                'redirect': 'follow',
+                'headers':
+                {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                'body': JSON.stringify(body)
+            })
+            //checa se requisicao deu certo
+            .then((response) => {
+                if (response.ok) {
+                    return response.text()
+                }
+                else {
+                    return response.text().then((text) => {
+                        throw new Error(text)
+                    })
+                }
+            })
+            //trata resposta
+            .then((output) => {
+                console.log(output)
+                alert('Cadastro realizado com sucesso!')
+            })
+            //trata erro
+            .catch((error) => {
+                console.log(error)
+                alert('Não foi possível realizar o cadastro.')
+            })
+
+
+    }
+    function validaNome(id) {
+        let divNome = document.getElementById(id)
+        if (divNome.value.trim().split(' ').length >= 2) {
+            divNome.style.border = 0
+            return true
+        }
+        else {
+            divNome.style.border = 'solid 1px red'
+            return false
+        }
+    }
+
+    function validaData(id) {
+        let divData = document.getElementById(id)
+        if (divData.value.length > 0) {
+            divData.style.border = 0
+            return true
+        }
+        else {
+            divData.style.border = 'solid 1px red'
+            return false
+        }
+    }
+
+    function validaEmail(id) {
+        let divEmail = document.getElementById(id)
+        // console.log(divEmail)
+        let email = divEmail.value
+        let temEspecial = (/[@]/).test(email)
+        if (temEspecial) {
+            divEmail.style.border = 0
+            return true
+        }
+        else {
+            divEmail.style.border = 'solid 1px red'
+            return false
+        }
+    }
+
+    //////////////////////////Livro////////////////////////////////////////////////////////
+    var url = 'http://localhost:3000/'
+
+
+    function cadastrarlivro() {
+        //validacao de alguns dos inputs
+
+        if (!validaNomeLivro('nome')) {
+            return
+        }
+
+        if (!validaNomeAutor('autor')) {
+            return
+        }
+
+        if (!validaGenero('genero')) {
+            return
+        }
+
+        if (!validaDataLivro('ano')) {
+            return
+        }
+
+
+        let body =
+        {
+            'Nome': document.getElementById('nome').value,
+            'Autor': document.getElementById('autor').value,
+            'Genero': document.getElementById('genero').value,
+            'Ano': document.getElementById('ano').value,
+        }
+
+        fetch(url + "api/Livro",
+            {
+                'method': 'POST',
+                'redirect': 'follow',
+                'headers':
+                {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                'body': JSON.stringify(body)
+            })
+            //checa se requisicao deu certo
+            .then((response) => {
+                if (response.ok) {
+                    return response.text()
+                }
+                else {
+                    return response.text().then((text) => {
+                        throw new Error(text)
+                    })
+                }
+            })
+            //trata resposta
+            .then((output) => {
+                console.log(output)
+                alert('Cadastro realizado com sucesso!')
+            })
+            //trata erro
+            .catch((error) => {
+                console.log(error)
+                alert('Não foi possível realizar o cadastro.')
+            })
+
+
+    }
+    function validaNomeLivro(id) {
+        let divNomeLivro = document.getElementById(id)
+        if (divNomeLivro.value.trim().split('').length >= 1) {
+            divNomeLivro.style.border = 0
+            return true
+        }
+        else {
+            divNomeLivro.style.border = 'solid 1px red'
+            return false
+        }
+    }
+
+    function validaNomeAutor(id) {
+        let divNomeAutor = document.getElementById(id)
+        if (divNomeAutor.value.trim().split(' ').length >= 2) {
+            divNomeAutor.style.border = 0
+            return true
+        }
+        else {
+            divNomeAutor.style.border = 'solid 1px red'
+            return false
+        }
+    }
+
+    function validaGenero(id) {
+        let divNomeGenero = document.getElementById(id)
+        if (divNomeGenero.value.trim().split('').length >= 1) {
+            divNomeGenero.style.border = 0
+            return true
+        }
+        else {
+            divNomeGenero.style.border = 'solid 1px red'
+            return false
+        }
+    }
+
+    function validaDataLivro(id) {
+        let divDataLivro = document.getElementById(id)
+        if (divDataLivro.value.length > 0) {
+            divDataLivro.style.border = 0
+            return true
+        }
+        else {
+            divDataLivro.style.border = 'solid 1px red'
+            return false
+        }
+    }
+
+</script>
+
+
+
+
+
+
+<!-- <select id="">
+
+</select>
+
+criar uma div no javascript 
+
+FAZER UM <OPTION></OPTION>
+
+UMA DROP -->

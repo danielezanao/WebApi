@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Biblioteca</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <script src="index.html"></script> -->
+</head>
+
+<body>
+    <div class="form">
+        <button onclick="listar()">Listar Leitores</button>
+        <div id="lista-leitores"></div>
+        <p>Ir para <a href="index.html">Cadastro de Leitores</a></p>
+    </div>
+</body>
+
+</html>
+
+<script>
+    var url = 'http://localhost:3000/'
+    function listar() {
+        //da um GET no endpoint "usuarios"
+        fetch(url + 'api/Leitor')
+            .then(response => response.json())
+            .then((Leitores) => {
+                //pega div que vai conter a lista de usuarios
+                let listaLeitores = document.getElementById('lista-leitores')
+
+                //limpa div
+                while (listaLeitores.firstChild) {
+                    listaLeitores.removeChild(listaLeitores.firstChild)
+                }
+
+                //preenche div com usuarios recebidos do GET ////AQUI Dani
+                for (let leitor of Leitores) {
+                    //cria div para as informacoes de um usuario
+                    let divLeitor = document.createElement('div')
+                    divLeitor.setAttribute('class', 'form')
+
+                    //pega o nome do usuario
+                    let divNome = document.createElement('input')
+                    divNome.placeholder = 'Nome Completo'
+                    divNome.value = leitor.nome
+                    divLeitor.appendChild(divNome)
+
+                    //pega o email do usuario
+                    let divEmail = document.createElement('input')
+                    divEmail.placeholder = 'Email'
+                    divEmail.value = leitor.email
+                    divLeitor.appendChild(divEmail)
+
+                    //cria o botao para remover o usuario
+                    let btnRemover = document.createElement('button')
+                    btnRemover.innerHTML = 'Remover'
+                    btnRemover.onclick = u => remover(leitor.id)
+                    btnRemover.style.marginRight = '5px'
+
+                    //cria o botao para atualizar o usuario
+                    let btnAtualizar = document.createElement('button')
+                    btnAtualizar.innerHTML = 'Atualizar'
+                    btnAtualizar.onclick = u => atualizar(leitor.id, divNome, divEmail, divCpf)
+                    btnAtualizar.style.marginLeft = '5px'
+
+                    //cria a div com os dois botoes
+                    let divBotoes = document.createElement('div')
+                    divBotoes.style.dissplay = 'flex'
+                    divBotoes.appendChild(btnRemover)
+                    divBotoes.appendChild(btnAtualizar)
+                    divLeitor.appendChild(divBotoes)
+
+                    //insere a div do usuario na div com a lista de usuarios
+                    listaLeitores.appendChild(divLeitor)
+                }
+            })
+    }
+</script>

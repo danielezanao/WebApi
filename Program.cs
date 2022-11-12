@@ -25,6 +25,7 @@ builder.Services.AddScoped<ILivrosRepository, LivroRepository>();
 builder.Services.AddScoped<IEmprestimosRepository, EmprestimosRepository>();
 
 var app = builder.Build();
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -33,9 +34,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 //responsavel por forcar a inicializacao do serviço na porta 3000
