@@ -30,7 +30,7 @@
             <h2>Cadastro de Usuario</h2>
             <input id="nome-completo" placeholder="Nome Completo" type="text" onblur="validaNome(this.id)" />
             <input id="data-nascimento" placeholder="Data de Nascimento" type="date" onblur="validaData(this.id)" />
-            <input id="email" placeholder="Email" />
+            <input id="email" placeholder="Email" type="email" onblur="validaEmail(this.id)" />
             <button onclick="cadastrar()">Cadastrar</button>
             <p>Ir para <a href="listar.html">lista de usuários</a></p>
         </div>
@@ -38,10 +38,10 @@
 
         <div class="formlivro">
             <h2>Cadastro de Livro</h2>
-            <input id="nome" placeholder="Nome do livro" type="text" />
-            <input id="autor" placeholder="Nome do autor" type="text" />
-            <input id="genero" placeholder="Genero do livro" type="text" />
-            <input id="ano" placeholder="Ano de lançamento" type="text" />
+            <input id="nome" placeholder="Nome do livro" type="text" onblur="validaNomeLivro(this.id)" />
+            <input id="autor" placeholder="Nome do autor" type="text" onblur="validaNomeAutor(this.id)" />
+            <input id="genero" placeholder="Genero do livro" type="text" onblur="validaGenero(this.id)" />
+            <input id="ano" placeholder="Ano de lançamento" type="text" onblur="validaDataLivro(this.id)" />
             <button onclick="cadastrarlivro()">Cadastrar</button>
             <p>Ir para <a href="listar.html">lista de livros</a></p>
         </div>
