@@ -55,8 +55,10 @@
 
                     //pega o ano do usuario
                     let divAno = document.createElement('input')
+                    divAno.type = "Date";
                     divAno.placeholder = 'Data'
-                    divAno.value = leitor.ano
+                    //divAno.value = "2017-12-02"
+                    divAno.value = leitor.dataNascimento.slice(0, 10);
                     divLeitor.appendChild(divAno)
 
                     //cria o botao para remover o usuario
@@ -68,7 +70,7 @@
                     //cria o botao para atualizar o usuario
                     let btnAtualizar = document.createElement('button')
                     btnAtualizar.innerHTML = 'Atualizar'
-                    btnAtualizar.onclick = u => atualizar(leitor.id, divNome, divEmail)
+                    btnAtualizar.onclick = u => atualizar(leitor.id, divNome, divEmail, divAno)
                     btnAtualizar.style.marginLeft = '5px'
 
                     //cria a div com os dois botoes
@@ -84,14 +86,17 @@
             })
     }
 
-    function atualizar(id, divNome, divEmail) {
+    function atualizar(id, divNome, divEmail, divAno) {
+
+        let novaData = new Date(divAno.value);
+        //console.log(novaData);
         let body =
         {
             'Nome': divNome.value,
             'Email': divEmail.value,
-            //'Data': divData.value
+            'dataNascimento': novaData.toJSON(),
         }
-
+        console.log(body);
         fetch(url + "api/Leitor/" + id,
             {
                 'method': 'PUT',
@@ -112,6 +117,9 @@
                         throw new Error(text)
                     })
                 }
+            })
+            .catch((err) => {
+                console.error(err);
             })
             .then((output) => {
                 listar()

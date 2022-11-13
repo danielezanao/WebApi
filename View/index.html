@@ -80,11 +80,11 @@
             return
         }
 
-
+        let novaData = new Date(document.getElementById('data-nascimento').value);
         let body =
         {
             'Nome': document.getElementById('nome-completo').value,
-            'Nascimento': document.getElementById('data-nascimento').value,
+            'dataNascimento': novaData.toJSON(),
             'Email': document.getElementById('email').value,
         }
 

@@ -88,12 +88,13 @@
             })
     }
 
-    function atualizar(id, divNome, divNomeAutor, divNomeGenero) {
+    function atualizar(id, divNome, divNomeAutor, divNomeGenero, divAno) {
         let body =
         {
             'Nome': divNome.value,
             'Autor': divNomeAutor.value,
-            'Genero': divNomeGenero.value
+            'Genero': divNomeGenero.value,
+            'Ano': divAno.value,
         }
 
         fetch(url + "api/Livro/" + id,
