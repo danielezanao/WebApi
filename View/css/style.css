@@ -5,18 +5,46 @@ body {
     font-size: 100%;
 }
 
-/*.logo {
+header {
+    /*alinha o conteudo do header*/
+    margin: auto;
+    display: block;
     width: 100px;
     float: left;
-}*/
-.topo {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    align-items: stretch;
-    align-content: normal;
 }
+
+img {
+    margin: auto;
+    display: block;
+    width: 70px;
+    float: left;
+
+}
+
+.bemvindo {
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.logo {
+    width: 90px;
+    float: left;
+    align-items: center;
+}
+
+.topo {
+    display: flex;
+    align-items: stretch;
+    align-content: center;
+    justify-content: space-around;
+}
+
+/* display: inline-flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: space-around;
+align-items: stretch;
+align-content: normal; */
 
 a:hover {
     text-decoration: underline;
@@ -53,7 +81,7 @@ nav li a {
     align-content: center;
     width: 100%;
     background-color: #460812;
-    height: 90px;
+    height: 120px;
 }
 
 .menu {
