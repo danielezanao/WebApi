@@ -63,12 +63,14 @@
 
                     //cria o botao para remover o usuario
                     let btnRemover = document.createElement('button')
+                    // btnRemover.className = 'btnjsremover'
                     btnRemover.innerHTML = 'Remover'
                     btnRemover.onclick = u => remover(leitor.id)
                     btnRemover.style.marginRight = '5px'
 
                     //cria o botao para atualizar o usuario
                     let btnAtualizar = document.createElement('button')
+                    // btnAtualizar.className = 'btnjsatualizar'
                     btnAtualizar.innerHTML = 'Atualizar'
                     btnAtualizar.onclick = u => atualizar(leitor.id, divNome, divEmail, divAno)
                     btnAtualizar.style.marginLeft = '5px'
@@ -124,11 +126,11 @@
             .then((output) => {
                 listar()
                 console.log(output)
-                alert('Usuário atualizado! \\o/')
+                alert('Leitor atualizado.')
             })
             .catch((error) => {
                 console.log(error)
-                alert('Não foi possível atualizar o usuário :/')
+                alert('Não foi possível atualizar o leitor.')
             })
     }
 
@@ -151,11 +153,11 @@
             .then((output) => {
                 listar()
                 console.log(output)
-                alert('Usuário removido! >=]')
+                alert('Leitor removido com sucesso.')
             })
             .catch((error) => {
                 console.log(error)
-                alert('Não foi possível remover o usuário :/')
+                alert('Não foi possível remover leitor')
             })
     }
 

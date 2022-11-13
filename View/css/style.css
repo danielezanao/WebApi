@@ -9,7 +9,7 @@ header {
     /*alinha o conteudo do header*/
     margin: auto;
     display: block;
-    width: 100px;
+    width: 90px;
     float: left;
 }
 
@@ -39,12 +39,21 @@ img {
     justify-content: space-around;
 }
 
-/* display: inline-flex;
-flex-direction: row;
-flex-wrap: nowrap;
-justify-content: space-around;
-align-items: stretch;
-align-content: normal; */
+/* .btnjsremover {
+    background: rgb(75, 20, 20);
+    color: #FFFFFF;
+    outline: 0;
+    padding: 20px;
+    width: 70%;
+}
+
+.btnjsatualizar {
+    background: rgb(75, 20, 20);
+    color: #FFFFFF;
+    outline: 0;
+    padding: 20px;
+    width: 100%;
+} */
 
 a:hover {
     text-decoration: underline;
@@ -88,7 +97,6 @@ nav li a {
     text-decoration: none;
     font-size: 16px;
     color: #f8f5f5;
-
 }
 
 a {
@@ -107,7 +115,7 @@ a:hover {
     box-shadow: 0 0 1px 0;
     position: relative;
     margin: 50px auto;
-    max-width: 320px;
+    max-width: 380px;
     padding: 30px;
     text-align: center;
     z-index: 1;
@@ -129,7 +137,7 @@ input {
 }
 
 .form button:active {
-    background: #b42834;
+    background: #8f353c;
 }
 
 .form input {
@@ -144,7 +152,7 @@ input {
     box-shadow: 0 0 1px 0;
     position: relative;
     margin: 50px auto;
-    max-width: 320px;
+    max-width: 380px;
     padding: 30px;
     text-align: center;
     z-index: 1;
@@ -166,7 +174,7 @@ input {
 }
 
 .formlivro button:active {
-    background: #b42834;
+    background: #8f353c;
 }
 
 .formlivro input {
@@ -182,7 +190,7 @@ input {
     box-shadow: 0 0 1px 0;
     position: relative;
     margin: 50px auto;
-    max-width: 320px;
+    max-width: 380px;
     padding: 30px;
     text-align: center;
     z-index: 1;
@@ -204,7 +212,7 @@ input {
 }
 
 .formemprestimo button:active {
-    background: #b42834;
+    background: #8f353c;
 }
 
 .formemprestimo input {
