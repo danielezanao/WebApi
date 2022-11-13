@@ -78,7 +78,7 @@
                     //cria a div com os dois botoes
                     let divBotoes = document.createElement('div')
                     divBotoes.style.dissplay = 'flex'
-                    // divBotoes.appendChild(btnRemover)
+                    divBotoes.appendChild(btnRemover)
                     divBotoes.appendChild(btnAtualizar)
                     divLivro.appendChild(divBotoes)
 
@@ -129,31 +129,31 @@
             })
     }
 
-    // function remover(id) {
-    //     fetch(url + 'api/Leitor/' + id,
-    //         {
-    //             'method': 'DELETE',
-    //             'redirect': 'follow'
-    //         })
-    //         .then((response) => {
-    //             if (response.ok) {
-    //                 return response.text()
-    //             }
-    //             else {
-    //                 return response.text().then((text) => {
-    //                     throw new Error(text)
-    //                 })
-    //             }
-    //         })
-    //         .then((output) => {
-    //             listar()
-    //             console.log(output)
-    //             alert('Usuário removido! >=]')
-    //         })
-    //         .catch((error) => {
-    //             console.log(error)
-    //             alert('Não foi possível remover o usuário :/')
-    //         })
-    // }
+    function remover(id) {
+        fetch(url + 'api/Livro/' + id,
+            {
+                'method': 'DELETE',
+                'redirect': 'follow'
+            })
+            .then((response) => {
+                if (response.ok) {
+                    return response.text()
+                }
+                else {
+                    return response.text().then((text) => {
+                        throw new Error(text)
+                    })
+                }
+            })
+            .then((output) => {
+                listarLivros()
+                console.log(output)
+                alert('Livro removido.')
+            })
+            .catch((error) => {
+                console.log(error)
+                alert('Não foi possível remover o Livro.')
+            })
+    }
 
 </script>
