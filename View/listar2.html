@@ -10,11 +10,12 @@
     <!-- <script src="index.html"></script> -->
 </head>
 
+
 <body>
-    <div class="form">
-        <button onclick="listar()">Listar Leitores</button>
-        <div id="lista-leitores"></div>
-        <p>Ir para <a href="index.html">Cadastro de Leitores</a></p>
+    <div class="formlivro">
+        <button onclick="listarLivros()">Listar Livros</button>
+        <div id="lista-livros"></div>
+        <p>Ir para <a href="index.html">Cadastro de Livros</a></p>
     </div>
 </body>
 
@@ -22,77 +23,80 @@
 
 <script>
     var url = 'http://localhost:3000/'
-    function listar() {
+    function listarLivros() {
         //da um GET no endpoint "usuarios"
-        fetch(url + 'api/Leitor')
+        fetch(url + 'api/Livro')
             .then(response => response.json())
-            .then((Leitores) => {
+            .then((Livros) => {
                 //pega div que vai conter a lista de usuarios
-                let listaLeitores = document.getElementById('lista-leitores')
+                let listarLivros = document.getElementById('lista-livros')
 
                 //limpa div
-                while (listaLeitores.firstChild) {
-                    listaLeitores.removeChild(listaLeitores.firstChild)
+                while (listarLivros.firstChild) {
+                    listarLivros.removeChild(listarLivros.firstChild)
                 }
 
                 //preenche div com usuarios recebidos do GET ////AQUI Dani
-                for (let leitor of Leitores) {
+                for (let livro of Livros) {
                     //cria div para as informacoes de um usuario
-                    let divLeitor = document.createElement('div')
-                    divLeitor.setAttribute('class', 'form')
+                    let divLivro = document.createElement('div')
+                    divLivro.setAttribute('class', 'form')
 
                     //pega o nome do usuario
                     let divNome = document.createElement('input')
                     divNome.placeholder = 'Nome Completo'
-                    divNome.value = leitor.nome
-                    divLeitor.appendChild(divNome)
+                    divNome.value = livro.nome
+                    divLivro.appendChild(divNome)
 
-                    //pega o email do usuario
-                    let divEmail = document.createElement('input')
-                    divEmail.placeholder = 'Email'
-                    divEmail.value = leitor.email
-                    divLeitor.appendChild(divEmail)
+                    let divNomeAutor = document.createElement('input')
+                    divNomeAutor.placeholder = 'Autor'
+                    divNomeAutor.value = livro.autor
+                    divLivro.appendChild(divNomeAutor)
 
-                    //pega o ano do usuario
+                    let divNomeGenero = document.createElement('input')
+                    divNomeGenero.placeholder = 'Genero'
+                    divNomeGenero.value = livro.genero
+                    divLivro.appendChild(divNomeGenero)
+
                     let divAno = document.createElement('input')
-                    divAno.placeholder = 'Data'
-                    divAno.value = leitor.ano
-                    divLeitor.appendChild(divAno)
+                    divAno.placeholder = 'Ano'
+                    divAno.value = livro.ano
+                    divLivro.appendChild(divAno)
 
                     //cria o botao para remover o usuario
                     let btnRemover = document.createElement('button')
                     btnRemover.innerHTML = 'Remover'
-                    btnRemover.onclick = u => remover(leitor.id)
+                    btnRemover.onclick = u => remover(livro.id)
                     btnRemover.style.marginRight = '5px'
 
                     //cria o botao para atualizar o usuario
                     let btnAtualizar = document.createElement('button')
                     btnAtualizar.innerHTML = 'Atualizar'
-                    btnAtualizar.onclick = u => atualizar(leitor.id, divNome, divEmail)
+                    btnAtualizar.onclick = u => atualizar(livro.id, divNome, divNomeAutor, divNomeGenero, divAno)
                     btnAtualizar.style.marginLeft = '5px'
 
                     //cria a div com os dois botoes
                     let divBotoes = document.createElement('div')
                     divBotoes.style.dissplay = 'flex'
-                    divBotoes.appendChild(btnRemover)
+                    // divBotoes.appendChild(btnRemover)
                     divBotoes.appendChild(btnAtualizar)
-                    divLeitor.appendChild(divBotoes)
+                    divLivro.appendChild(divBotoes)
 
                     //insere a div do usuario na div com a lista de usuarios
-                    listaLeitores.appendChild(divLeitor)
+                    listarLivros.appendChild(divLivro)
                 }
             })
     }
 
-    function atualizar(id, divNome, divEmail) {
+    function atualizar(id, divNome, divNomeAutor, divNomeGenero) {
         let body =
         {
             'Nome': divNome.value,
-            'Email': divEmail.value,
-            //'Data': divData.value
+            'Autor': divNomeAutor.value,
+            'Genero': divNomeGenero.value
         }
 
-        fetch(url + "api/Leitor/" + id,
+        fetch(url + "api/Livro/" + id,
             {
                 'method': 'PUT',
                 'redirect': 'follow',
@@ -114,7 +118,7 @@
                 }
             })
             .then((output) => {
-                listar()
+                listarLivros()
                 console.log(output)
                 alert('Usuário atualizado! \\o/')
             })
@@ -124,31 +128,31 @@
             })
     }
 
-    function remover(id) {
-        fetch(url + 'api/Leitor/' + id,
-            {
-                'method': 'DELETE',
-                'redirect': 'follow'
-            })
-            .then((response) => {
-                if (response.ok) {
-                    return response.text()
-                }
-                else {
-                    return response.text().then((text) => {
-                        throw new Error(text)
-                    })
-                }
-            })
-            .then((output) => {
-                listar()
-                console.log(output)
-                alert('Usuário removido! >=]')
-            })
-            .catch((error) => {
-                console.log(error)
-                alert('Não foi possível remover o usuário :/')
-            })
-    }
+    // function remover(id) {
+    //     fetch(url + 'api/Leitor/' + id,
+    //         {
+    //             'method': 'DELETE',
+    //             'redirect': 'follow'
+    //         })
+    //         .then((response) => {
+    //             if (response.ok) {
+    //                 return response.text()
+    //             }
+    //             else {
+    //                 return response.text().then((text) => {
+    //                     throw new Error(text)
+    //                 })
+    //             }
+    //         })
+    //         .then((output) => {
+    //             listar()
+    //             console.log(output)
+    //             alert('Usuário removido! >=]')
+    //         })
+    //         .catch((error) => {
+    //             console.log(error)
+    //             alert('Não foi possível remover o usuário :/')
+    //         })
+    // }
 
 </script>
