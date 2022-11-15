@@ -24,6 +24,7 @@
 <script>
     var url = 'http://localhost:3000/'
     function listarEmprestimos() {
+
         //da um GET no endpoint "usuarios"
         fetch(url + 'api/Emprestimo')
             .then(response => response.json())
@@ -35,9 +36,72 @@
                 while (listarEmprestimos.firstChild) {
                     listarEmprestimos.removeChild(listarEmprestimos.firstChild)
                 }
+                Emprestimos.forEach(emprestimo => {
 
+                    //cria div para as informacoes de um usuario
+                    let divEmprestimo = document.createElement('div')
+                    divEmprestimo.setAttribute('class', 'form')
+                    //Cria input nome usuario
+                    let divLeitor = document.createElement('input')
+                    //add titulo livro input
+                    let divLivro = document.createElement('input')
+
+                    //--------------- Consulta leitor / id ---------------------
+                    fetch(url + 'api/Leitor/' + emprestimo.id_leitor)
+                        .then(response => response.json())
+                        .then((Leitor) => {
+                            //add nome input nome usuario
+                            divLeitor.placeholder = 'Nome Leitor'
+                            divLeitor.value = Leitor.nome;
+
+
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+                    //--------------------------------------------------------------
+
+
+                    //----------------- Consulta livro id --------------------------
+                    fetch(url + 'api/Livro/' + emprestimo.id_livro)
+                        .then(response => response.json())
+                        .then((Livro) => {
+                            //add titulo livro input
+                            divLivro.placeholder = 'Titulo Livro'
+                            divLivro.value = Livro.nome;
+
+
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
+
+                    //---------------------------------------------------------------
+
+                    divEmprestimo.appendChild(divLeitor)
+                    divEmprestimo.appendChild(divLivro)
+
+                    let divDataEmp = document.createElement('input')
+                    divDataEmp.type = "date";
+                    divDataEmp.placeholder = 'Data Emprestimo'
+                    divDataEmp.value = emprestimo.dataEmprestimo.slice(0, 10);
+                    divEmprestimo.appendChild(divDataEmp)
+
+                    let divDataDev = document.createElement('input')
+                    divDataDev.placeholder = 'Data Devolucao'
+                    if (emprestimo.dataDevolucao == "0001-01-01T00:00:00") {
+                        divDataDev.value = "Pendente de devolução"
+                    } else {
+                        divDataDev.type = "date";
+                        divDataDev.value = emprestimo.dataDevolucao.slice(0, 10);
+                    }
+                    divEmprestimo.appendChild(divDataDev)
+
+
+                    listarEmprestimos.appendChild(divEmprestimo)
+                })
                 //preenche  com usuarios recebidos do GET ////AQUI Dani
-                for (let emprestimo of Emprestimos) {
+                /*for (let emprestimo of Emprestimos) {
                     //cria div para as informacoes de um usuario
                     let divEmprestimo = document.createElement('div')
                     divEmprestimo.setAttribute('class', 'form')
@@ -70,9 +134,8 @@
 
                     listarEmprestimos.appendChild(divEmprestimo)
 
-                }
+                }*/
 
             })
-
     }
 </script>
