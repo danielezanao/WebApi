@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Biblioteca</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- <script src="index.html"></script> -->
+</head>
+
+
+<body>
+    <div class="formlivro">
+        <button onclick="listarEmprestimos()">Listar Livros</button>
+        <div id="lista-emprestimos"></div>
+        <p>Ir para <a href="index.html">Cadastro de Livros</a></p>
+    </div>
+</body>
+
+</html>
+
+<script>
+    var url = 'http://localhost:3000/'
+    function listarEmprestimos() {
+        //da um GET no endpoint "usuarios"
+        fetch(url + 'api/Emprestimo')
+            .then(response => response.json())
+            .then((Emprestimos) => {
+
+                let listarEmprestimos = document.getElementById('lista-emprestimos')
+
+
+                while (listarEmprestimos.firstChild) {
+                    listarEmprestimos.removeChild(listarEmprestimos.firstChild)
+                }
+
+                //preenche  com usuarios recebidos do GET ////AQUI Dani
+                for (let emprestimo of Emprestimos) {
+                    //cria div para as informacoes de um usuario
+                    let divEmprestimo = document.createElement('div')
+                    divEmprestimo.setAttribute('class', 'form')
+
+                    //pega o nome do usuario
+                    let divLivro = document.createElement('input')
+                    divLivro.placeholder = 'id_livro/Leitor'
+                    divLivro.value = emprestimo.id_livro
+                    divEmprestimo.appendChild(divLivro)
+
+                    let divLeitor = document.createElement('input')
+                    divLeitor.placeholder = 'id_leitor/Livro'
+                    divLeitor.value = emprestimo.id_leitor
+                    divEmprestimo.appendChild(divLeitor)
+
+                    let divDataEmp = document.createElement('input')
+                    divDataEmp.placeholder = 'Data Emprestimo'
+                    divDataEmp.value = emprestimo.dataEmprestimo
+                    divEmprestimo.appendChild(divDataEmp)
+
+                    let divDataDev = document.createElement('input')
+                    divDataDev.placeholder = 'Data Devolucao'
+                    divDataDev.value = emprestimo.dataDevolucao
+                    divEmprestimo.appendChild(divDataDev)
+
+                    // let divEstado = document.createElement('input')
+                    // divEstado.placeholder = 'estado'
+                    // divEstado.value = emprestimo.estado
+                    // divEmprestimo.appendChild(divEstado)
+
+                    listarEmprestimos.appendChild(divEmprestimo)
+
+                }
+
+            })
+
+    }
+</script>

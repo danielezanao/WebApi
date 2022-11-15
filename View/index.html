@@ -43,15 +43,21 @@
         </div>
 
         <div class="formemprestimo">
+            <button onclick="listarEmprestimo()">Listar</button>
             <h2>Emprestimo de Livro</h2>
-            <input id="id_leitor" placeholder="Numero do leitor" type="number" />
-            <input id="id_livro" placeholder="Numero do livro" type="number" />
-            <h4>Data de emprestimo</h4>
-            <input id="emprestimo" placeholder="Dia do emprestimo" type="date" />
-            <h4>Data de devolução</h4>
-            <input id="devolucao" placeholder="Dia da devolução" type="date" />
-            <button onclick="emprestimo()">Emprestar</button>
-            <p>Ir para <a href="listar.html">lista emprestimos</a></p>
+            <select id="lista-livros">
+                <option id=""></option>
+            </select>
+            <select id="lista-leitores">
+                <option id=""></option>
+            </select>
+            <h2>Data de Emprestimo</h2>
+            <input id="data-emprestimo" placeholder="Data de Nascimento" type="date"
+                onblur="validaDataEmprestimo(this.id)" />
+            <div>
+                <button onclick="cadastrarEmprestimo()">Cadastrar Emprestimo</button>
+            </div>
+            <p>Ir para <a href="listar3.html">lista emprestimos</a></p>
         </div>
     </div>
 </body>
@@ -273,6 +279,115 @@
         }
     }
 
+    ///////////////////////////////emprestimo///////////////////////
+
+    var url = 'http://localhost:3000/'
+    function listarEmprestimo() {
+        //da um GET no endpoint "usuarios"
+        fetch(url + 'api/Livro')
+            .then(response => response.json())
+            .then((Livros) => {
+                //pega div que vai conter a lista de usuarios
+                let listarLivros = document.getElementById('lista-livros')
+
+                //limpa div
+                while (listarLivros.firstChild) {
+                    listarLivros.removeChild(listarLivros.firstChild)
+                }
+
+                //preenche com usuarios recebidos do GET ////AQUI Dani
+                for (let livro of Livros) {
+                    //cria div para as informacoes de um usuario
+                    let optLivro = document.createElement('option')
+                    optLivro.innerHTML = livro.nome
+                    optLivro.value = livro.id
+                    listarLivros.appendChild(optLivro)
+                }
+            })
+        ////////////////////
+        fetch(url + 'api/Leitor')
+            .then(response => response.json())
+            .then((Leitores) => {
+                //pega div que vai conter a lista de usuarios
+                let listaLeitores = document.getElementById('lista-leitores')
+
+                //limpa div
+                while (listaLeitores.firstChild) {
+                    listaLeitores.removeChild(listaLeitores.firstChild)
+                }
+
+                for (let leitor of Leitores) {
+                    //cria div para as informacoes de um usuario
+                    let optLeitor = document.createElement('option')
+                    optLeitor.innerHTML = leitor.nome
+                    optLeitor.value = leitor.id
+                    listaLeitores.appendChild(optLeitor)
+                }
+
+
+            })
+    }
+    function cadastrarEmprestimo() {
+
+        if (!validaDataEmprestimo('data-emprestimo')) {
+            return
+        }
+
+        let novaData = new Date(document.getElementById('data-emprestimo').value);
+        let body =
+        {
+            'id_leitor': document.getElementById('lista-leitores').value,
+            'id_livros': document.getElementById('lista-livros').value,
+            'dataEmprestimo': novaData.toJSON(),
+
+        }
+
+        fetch(url + "api/Emprestimo",
+            {
+                'method': 'POST',
+                'redirect': 'follow',
+                'headers':
+                {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                'body': JSON.stringify(body)
+            })
+            //checa se requisicao deu certo
+            .then((response) => {
+                if (response.ok) {
+                    return response.text()
+                }
+                else {
+                    return response.text().then((text) => {
+                        throw new Error(text)
+                    })
+                }
+            })
+            //trata resposta
+            .then((output) => {
+                console.log(output)
+                alert('Cadastro realizado com sucesso!')
+            })
+            //trata erro
+            .catch((error) => {
+                console.log(error)
+                alert('Não foi possível realizar o cadastro.')
+            })
+    }
+
+    function validaDataEmprestimo(id) {
+        let divData = document.getElementById(id)
+        if (divData.value.length > 0) {
+            divData.style.border = 0
+            return true
+        }
+        else {
+            divData.style.border = 'solid 1px red'
+            return false
+        }
+    }
+
 </script>
 
 
@@ -280,12 +395,13 @@
 
 
 
+//
 <!-- <select id="">
 
-</select>
+// </select>
 
-criar uma div no javascript 
+// criar uma div no javascript 
 
-FAZER UM <OPTION></OPTION>
+// FAZER UM <OPTION></OPTION>
 
-UMA DROP -->
+// UMA DROP  -->
