@@ -57,10 +57,11 @@ namespace webapi.Controllers
 
             emprestimoBanco.Id_leitor = emprestimo.Id_leitor;
             emprestimoBanco.Id_livro = emprestimo.Id_livro;
+
             emprestimoBanco.DataEmprestimo = emprestimo.DataEmprestimo != new DateTime()
-            ? emprestimoBanco.DataEmprestimo : emprestimoBanco.DataEmprestimo;
+            ? emprestimo.DataEmprestimo : emprestimoBanco.DataEmprestimo;
             emprestimoBanco.DataDevolucao = emprestimo.DataDevolucao != new DateTime()
-            ? emprestimoBanco.DataDevolucao : emprestimoBanco.DataDevolucao;
+            ? emprestimo.DataDevolucao : emprestimoBanco.DataDevolucao;
 
             _erepository.AtualizaEmprestimo(emprestimoBanco);
 

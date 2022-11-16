@@ -43,8 +43,9 @@
         </div>
 
         <div class="formemprestimo">
-            <button onclick="listarEmprestimo()">Listar</button>
             <h2>Emprestimo de Livro</h2>
+            <button onclick="listarEmprestimo()">Listar opções</button>
+
             <select id="lista-livros">
                 <option id=""></option>
             </select>
@@ -332,6 +333,9 @@
         if (!validaDataEmprestimo('data-emprestimo')) {
             return
         }
+        // if(!validacaoDisponibilidade()){
+        //     return
+        // }
 
         let novaData = new Date(document.getElementById('data-emprestimo').value);
         let body =
@@ -387,6 +391,14 @@
             return false
         }
     }
+
+    // function validacaoDisponibilidade{
+    //     if (dataDevolucao == "0001-01-01T00:00:00") {
+    //         alert("O livro ja foi emprestado")
+    //     } else {
+    //         return cadastrarEmprestimo
+    //     }
+    // }
 
 </script>
 

@@ -41,10 +41,13 @@
                     //cria div para as informacoes de um usuario
                     let divEmprestimo = document.createElement('div')
                     divEmprestimo.setAttribute('class', 'form')
+                    divEmprestimo.setAttribute('id', emprestimo.id);
                     //Cria input nome usuario
                     let divLeitor = document.createElement('input')
                     //add titulo livro input
                     let divLivro = document.createElement('input')
+
+
 
                     //--------------- Consulta leitor / id ---------------------
                     fetch(url + 'api/Leitor/' + emprestimo.id_leitor)
@@ -53,7 +56,6 @@
                             //add nome input nome usuario
                             divLeitor.placeholder = 'Nome Leitor'
                             divLeitor.value = Leitor.nome;
-
 
                         })
                         .catch((err) => {
@@ -71,7 +73,6 @@
                             divLivro.placeholder = 'Titulo Livro'
                             divLivro.value = Livro.nome;
 
-
                         })
                         .catch((err) => {
                             console.error(err);
@@ -87,57 +88,138 @@
                     divDataEmp.type = "date";
                     divDataEmp.placeholder = 'Data Emprestimo'
                     divDataEmp.value = emprestimo.dataEmprestimo.slice(0, 10);
+                    divDataEmp.setAttribute("id", emprestimo.id + "-empDev");
                     divEmprestimo.appendChild(divDataEmp)
 
                     let divDataDev = document.createElement('input')
                     divDataDev.placeholder = 'Data Devolucao'
                     if (emprestimo.dataDevolucao == "0001-01-01T00:00:00") {
-                        divDataDev.value = "Pendente de devolução"
+                        divDataDev.value = emprestimo.dataDevolucao.slice(0, 10);
+                        divDataDev.style.border = 'solid 1px Goldenrod'
+                        divDataDev.setAttribute("id", emprestimo.id + "-dtDev");
+                        divDataDev.type = "date";
                     } else {
                         divDataDev.type = "date";
                         divDataDev.value = emprestimo.dataDevolucao.slice(0, 10);
+                        divDataDev.style.border = 0
                     }
+                    divEmprestimo.value = emprestimo.dataDevolucao.slice(0, 10);
                     divEmprestimo.appendChild(divDataDev)
 
+
+                    let divBotoes = document.createElement('div')
+                    divBotoes.style.dissplay = 'flex'
+
+                    //botoes de remover
+                    let btnRemover = document.createElement('button')
+                    btnRemover.innerHTML = 'Remover';
+                    btnRemover.onclick = u => remover(emprestimo.id)
+                    btnRemover.style.marginRight = '5px'
+
+                    //cria o botao para atualizar o usuario
+                    let btnAtualizar = document.createElement('button')
+                    btnAtualizar.innerHTML = 'Atualizar'
+                    btnAtualizar.onclick = u => atualizarEmprestimo(emprestimo.id)
+                    btnAtualizar.style.marginLeft = '5px'
+
+
+                    divBotoes.appendChild(btnRemover)
+                    divBotoes.appendChild(btnAtualizar)
+                    divEmprestimo.appendChild(divBotoes)
 
                     listarEmprestimos.appendChild(divEmprestimo)
                 })
-                //preenche  com usuarios recebidos do GET ////AQUI Dani
-                /*for (let emprestimo of Emprestimos) {
-                    //cria div para as informacoes de um usuario
-                    let divEmprestimo = document.createElement('div')
-                    divEmprestimo.setAttribute('class', 'form')
-
-                    //pega o nome do usuario
-                    let divLivro = document.createElement('input')
-                    divLivro.placeholder = 'id_livro/Leitor'
-                    divLivro.value = emprestimo.id_livro
-                    divEmprestimo.appendChild(divLivro)
-
-                    let divLeitor = document.createElement('input')
-                    divLeitor.placeholder = 'id_leitor/Livro'
-                    divLeitor.value = emprestimo.id_leitor
-                    divEmprestimo.appendChild(divLeitor)
-
-                    let divDataEmp = document.createElement('input')
-                    divDataEmp.placeholder = 'Data Emprestimo'
-                    divDataEmp.value = emprestimo.dataEmprestimo
-                    divEmprestimo.appendChild(divDataEmp)
-
-                    let divDataDev = document.createElement('input')
-                    divDataDev.placeholder = 'Data Devolucao'
-                    divDataDev.value = emprestimo.dataDevolucao
-                    divEmprestimo.appendChild(divDataDev)
-
-                    // let divEstado = document.createElement('input')
-                    // divEstado.placeholder = 'estado'
-                    // divEstado.value = emprestimo.estado
-                    // divEmprestimo.appendChild(divEstado)
-
-                    listarEmprestimos.appendChild(divEmprestimo)
-
-                }*/
 
             })
+    }
+    function remover(id) {
+        fetch(url + 'api/Emprestimo/' + id,
+            {
+                'method': 'DELETE',
+                'redirect': 'follow'
+            })
+            .then((response) => {
+                if (response.ok) {
+                    return response.text()
+                }
+                else {
+                    return response.text().then((text) => {
+                        throw new Error(text)
+                    })
+                }
+            })
+            .then((output) => {
+                listarEmprestimos()
+                console.log(output)
+                alert('Emprestimo removido.')
+            })
+            .catch((error) => {
+                console.log(error)
+                alert('Não foi possível remover o registro do emprestimo.')
+            })
+    }
+    function atualizarEmprestimo(id) {
+        let idLeitorEmprestimo;
+        let idLivroEmprestimo;
+        fetch(url + 'api/Emprestimo/' + id)
+            .then(response => response.json())
+            .then((Emprestimo) => {
+                idLivroEmprestimo = Emprestimo.id_livro;
+                idLeitorEmprestimo = Emprestimo.id_leitor;
+
+                let NovaDataDev = document.getElementById(id + "-dtDev")
+                let NovaDataEmp = document.getElementById(id + "-empDev")
+
+                let novaEmp = new Date(NovaDataDev.value);
+                let novaDev = new Date(NovaDataEmp.value);
+                console.log("NovaDev" + novaDev.toJSON())
+                let body =
+                {
+                    "id_livro": idLivroEmprestimo,
+                    "id_leitor": idLeitorEmprestimo,
+                    'dataEmprestimo': novaEmp.toJSON(),
+                    'dataDevolucao': novaDev.toJSON(),
+                }
+                console.log(body);
+                fetch(url + "api/Emprestimo/" + id,
+                    {
+                        'method': 'PUT',
+                        'redirect': 'follow',
+                        'headers':
+                        {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        'body': JSON.stringify(body)
+                    })
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.text()
+                        }
+                        else {
+                            return response.text().then((text) => {
+                                throw new Error(text)
+                            })
+                        }
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    })
+                    .then((output) => {
+                        listarEmprestimos()
+                        console.log(output)
+                        alert('Leitor atualizado.')
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                        alert('Não foi possível atualizar o leitor.')
+                    })
+            })
+            .catch((error) => {
+
+            });
+
+
+
     }
 </script>
